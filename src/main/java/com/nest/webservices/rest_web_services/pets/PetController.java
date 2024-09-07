@@ -1,5 +1,6 @@
 package com.nest.webservices.rest_web_services.pets;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,14 +35,14 @@ public class PetController {
     }
 
     @PostMapping(path = "/pets")
-    public ResponseEntity<URI> createPet(@RequestBody Pet pet) {
+    public ResponseEntity<URI> createPet(@RequestBody @Valid Pet pet) {
         Pet savedPet = petService.create(pet);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPet.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping
-    public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
+    public ResponseEntity<Pet> updatePet(@RequestBody @Valid Pet pet) {
         return ResponseEntity.ok(petService.update(pet));
     }
 
