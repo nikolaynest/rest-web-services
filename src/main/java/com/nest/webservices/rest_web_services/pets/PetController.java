@@ -2,6 +2,8 @@ package com.nest.webservices.rest_web_services.pets;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,8 +32,14 @@ public class PetController {
     }
 
     @GetMapping(path = "/pets/{id}")
-    public ResponseEntity<Pet> getPet(@PathVariable("id") int id) {
-        return ResponseEntity.ok(petService.getById(id));
+    public ResponseEntity<EntityModel<Pet>> getPet(@PathVariable("id") int id) {
+        Pet pet = petService.getById(id);
+        EntityModel<Pet> entityModel = EntityModel.of(pet);
+
+        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAll());
+        entityModel.add(link.withRel("all-pets"));
+
+        return ResponseEntity.ok(entityModel);
     }
 
     @PostMapping(path = "/pets")
