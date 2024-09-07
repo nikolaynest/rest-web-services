@@ -1,6 +1,6 @@
 package com.nest.webservices.rest_web_services.exceptions;
 
-import jakarta.annotation.Nonnull;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -38,12 +39,15 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        String messages = ex.getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining(", "));
+
         ErrorDetails errorDetails = ErrorDetails.builder()
                 .timestamp(LocalDateTime.now())
-                .message(ex.getMessage())
-                .details(request.getDescription(true))
+                .message(messages)
+                .details(ex.getMessage())
                 .build();
-//        ex.getFieldErrors().stream()
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }
