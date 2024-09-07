@@ -11,3 +11,4 @@ Official documentation: https://springdoc.org/
 ### CONTENT NEGOTIATION - Different ContentType: Json, Xml or Different language representations
 Accept header: application/json, application/xml
 Accept-Language header: en, nl, fr,..
+### Internationalization, I18n, Typically HTTP Request Header: Accept-Language is used
