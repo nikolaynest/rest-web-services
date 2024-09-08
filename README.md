@@ -17,3 +17,7 @@ Accept-Language header: en, nl, fr,..
 http://localhost:8080/actuator
 management.endpoints.web.exposure.include=*
 
+### HAL Explorer - allows to see API with links in HAL format:
+http://localhost:8080/explorer/index.html#
+http://localhost:8080/explorer/index.html#uri=/actuator
+

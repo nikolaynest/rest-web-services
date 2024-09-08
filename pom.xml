@@ -50,6 +50,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-hal-explorer</artifactId>
+        </dependency>
         <!-- springdoc-openapi java library helps to automate the generation of API documentation for spring boot projects.-->
         <dependency>
             <groupId>org.springdoc</groupId>
