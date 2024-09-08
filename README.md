@@ -12,3 +12,8 @@ Official documentation: https://springdoc.org/
 Accept header: application/json, application/xml
 Accept-Language header: en, nl, fr,..
 ### Internationalization, I18n, Typically HTTP Request Header: Accept-Language is used
+
+### Spring Actuator - allows to monitor the application with production-ready features:
+http://localhost:8080/actuator
+management.endpoints.web.exposure.include=*
+
